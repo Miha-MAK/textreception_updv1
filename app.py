@@ -1,5 +1,6 @@
 import telebot
 from telebot import types
+from time import sleep
 
 
 bot = telebot.TeleBot("1251300918:AAHtD1W2Clz294i5r1haITmjH03NfYB7Mb0")
@@ -23,8 +24,9 @@ def reply_msg(message):
     if len(message.text) > 20:
 
         bot.forward_message(chat_for,message.from_user.id, message.message_id)
-        print("send")
+
         bot.send_message(message.chat.id, text = "Сообщение успешно отправлено✅")
+        sleep(2)
         bot.send_message(message.chat.id, text = """<b>🔥🔥🔥ВНИМАНИЕ! Впервые в секторе рекламы!
 
 📌Теперь вы можете мгновенно публиковать свои объявления на нашем канале.
@@ -49,7 +51,7 @@ def callback_inline(call):
         s = bot.send_message(call.message.chat.id, text = "Напишите текст поста...📝")
 
         bot.register_next_step_handler(s,reply_msg) # Переходим в reply_msg
-        print(s)
+
 
 
     elif call.data == "no":

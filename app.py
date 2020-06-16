@@ -55,7 +55,7 @@ def callback_inline(call):
 
 
     elif call.data == "no":
-        bot.send_message(call.message, text = "Хорошо, если передумаете - напишите, я всегда тут!🤖")
+        bot.send_message(call.message.chat.id, text = "Хорошо, если передумаете - напишите, я всегда тут!🤖")
 
 
 

@@ -7,12 +7,12 @@ import pytz
 
 bot = telebot.TeleBot("1251300918:AAHtD1W2Clz294i5r1haITmjH03NfYB7Mb0")
 chat_for = "-1001394622167"
-#@test_test_43_bot
-#https://t.me/firechannel1
+
+ls = []
+
 print("start")
 @bot.message_handler(commands=['start'])
 def any_msg(message):
-
 
 
     keyboard = types.InlineKeyboardMarkup()
@@ -23,16 +23,17 @@ def any_msg(message):
 Я являюсь ботом канала «🔥MAK-S ГОРЯЩАЯ РЕКЛАМА🔥».
 Хотите ли Вы что то опубликировать на канале?""".format(message.from_user.first_name), reply_markup=keyboard)
 
-ls = []
 
 @bot.message_handler(content_types = ['text'])
 def reply_msg(message):
     if len(message.text) > 20:
-        ls.append(message.from_user.id)
-        global now
-        now = datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")
 
         bot.forward_message(chat_for,message.from_user.id, message.message_id)
+
+        global now
+        now = datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")
+        ls.append(message.from_user.id)
+        print(ls)
         bot.send_message(message.chat.id, text = """Сообщение успешно отправлено✅
 Вы можете делать публикацию через 30 минут.""")
         print(ls)
@@ -46,9 +47,13 @@ def reply_msg(message):
 https://t.me/firechannel1
 """ ,parse_mode='HTML' )
 
-        sleep(1800)
-        ls.clear()
-        print(ls)
+        while True:
+            sleep(60)
+            if int(datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")) == int(now) + 1:
+                ls.remove(message.from_user.id)
+                print(ls)
+                break
+
     else:
         bot.send_message(message.chat.id, text = "<b>❌Длина текста должно быть не менее 20 симболов.❌</b>\n\nПопробуйте ещё раз📝", parse_mode = 'HTML')
 
@@ -62,10 +67,10 @@ def callback_inline(call):
         global ID
         ID = str(call.data.replace("yes","")) # ID клиента
 
-        if len(ls) == 0 and call.message.from_user.id not in ls:
+        if call.message.from_user.id not in ls:
             s = bot.send_message(call.message.chat.id, text = "Напишите текст поста...📝")
             bot.register_next_step_handler(s,reply_msg) # Переходим в reply_msg
-        else:
+        elif call.message.from_user.id in ls:
             time = 30 - (int(datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")) - int(now))
             bot.send_message(call.message.chat.id, text = """Вы уже отправили сообщение.✅
 Подождите {} минут и повторите попытку.""".format(time), parse_mode = 'HTML')

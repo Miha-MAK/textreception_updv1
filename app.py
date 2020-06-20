@@ -28,11 +28,10 @@ ls = []
 @bot.message_handler(content_types = ['text'])
 def reply_msg(message):
     if len(message.text) > 20:
-        ls.append("membered")
+        ls.append(message.from_user.id)
         global now
         now = datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")
-        global chat_id
-        chat_id = message.from_user.id
+
         bot.forward_message(chat_for,message.from_user.id, message.message_id)
         bot.send_message(message.chat.id, text = """Сообщение успешно отправлено✅
 Вы можете делать публикацию через 30 минут.""")
@@ -63,10 +62,10 @@ def callback_inline(call):
         global ID
         ID = str(call.data.replace("yes","")) # ID клиента
 
-        if len(ls) == 0 and call.message.from_user.id != chat_id:
+        if len(ls) == 0 and call.message.from_user.id not in ls:
             s = bot.send_message(call.message.chat.id, text = "Напишите текст поста...📝")
             bot.register_next_step_handler(s,reply_msg) # Переходим в reply_msg
-        elif len(ls) > 0 and call.message.from_user.id == chat_id:
+        elif len(ls) > 0 and call.message.from_user.id in ls:
             time = 30 - (int(datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")) - int(now))
             bot.send_message(call.message.chat.id, text = """Вы уже отправили сообщение.✅
 Подождите {} минут и повторите попытку.""".format(time), parse_mode = 'HTML')

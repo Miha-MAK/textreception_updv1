@@ -63,10 +63,10 @@ def callback_inline(call):
         global ID
         ID = str(call.data.replace("yes","")) # ID клиента
 
-        if len(ls) == 0 and message.from_user.id != chat_id:
+        if len(ls) == 0 and call.message.from_user.id != chat_id:
             s = bot.send_message(call.message.chat.id, text = "Напишите текст поста...📝")
             bot.register_next_step_handler(s,reply_msg) # Переходим в reply_msg
-        elif len(ls) > 0 and message.from_user.id == chat_id:
+        elif len(ls) > 0 and call.message.from_user.id == chat_id:
             time = 30 - (int(datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")) - int(now))
             bot.send_message(call.message.chat.id, text = """Вы уже отправили сообщение.✅
 Подождите {} минут и повторите попытку.""".format(time), parse_mode = 'HTML')

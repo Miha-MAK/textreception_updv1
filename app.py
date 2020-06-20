@@ -65,7 +65,7 @@ def callback_inline(call):
         if len(ls) == 0 and call.message.from_user.id not in ls:
             s = bot.send_message(call.message.chat.id, text = "Напишите текст поста...📝")
             bot.register_next_step_handler(s,reply_msg) # Переходим в reply_msg
-        elif len(ls) > 0 and call.message.from_user.id in ls:
+        else:
             time = 30 - (int(datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")) - int(now))
             bot.send_message(call.message.chat.id, text = """Вы уже отправили сообщение.✅
 Подождите {} минут и повторите попытку.""".format(time), parse_mode = 'HTML')

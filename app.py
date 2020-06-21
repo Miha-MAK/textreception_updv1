@@ -53,9 +53,6 @@ https://t.me/firechannel1
     else:
         bot.send_message(message.chat.id, text = "<b>❌Длина текста должно быть не менее 20 симболов.❌</b>\n\nПопробуйте ещё раз📝", parse_mode = 'HTML')
 
-
-
-
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
     if call.data.startswith("yes"):

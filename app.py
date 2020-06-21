@@ -7,15 +7,14 @@ import pytz
 
 bot = telebot.TeleBot("1251300918:AAHtD1W2Clz294i5r1haITmjH03NfYB7Mb0")
 chat_for = "-1001394622167"
-
-
+dic = {
+    message.from_user.id: "1"
+    }
 print("start")
 @bot.message_handler(commands=['start'])
 def any_msg(message):
-    global dic
-    dic = {
-    message.from_user.id: "1"
-    }
+    
+  
 
     keyboard = types.InlineKeyboardMarkup()
     callback_button_yes = types.InlineKeyboardButton(text="Да, конечно✅", callback_data=f"yes{message.from_user.id}")

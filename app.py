@@ -35,7 +35,7 @@ def reply_msg(message):
             dic[message.from_user.id] = now
 
             print(dic)
-         except TypeError as e:
+        except TypeError as e:
             bot.send_message(message.chat.id, """Неверный формат❌
 Бот не принимает гифы
 Попробуйте ещё раз""")

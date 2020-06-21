@@ -14,7 +14,7 @@ print("start")
 def any_msg(message):
     global dic
     dic = {
-    message.from_user.id: "true"
+    message.from_user.id: "1"
     }
 
     keyboard = types.InlineKeyboardMarkup()

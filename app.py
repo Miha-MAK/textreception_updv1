@@ -28,13 +28,18 @@ def any_msg(message):
 @bot.message_handler(content_types = ['text'])
 def reply_msg(message):
     if len(message.text) > 20:
+        try:
+            bot.forward_message(chat_for,message.from_user.id, message.message_id)
+            global now
+            now = datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")
+            dic[message.from_user.id] = now
 
-        bot.forward_message(chat_for,message.from_user.id, message.message_id)
-        global now
-        now = datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")
-        dic[message.from_user.id] = now
-
-        print(dic)
+            print(dic)
+         except TypeError as e:
+            bot.send_message(message.chat.id, """Неверный формат❌
+Бот не принимает гифы
+Попробуйте ещё раз""")
+            pass
 
 
 

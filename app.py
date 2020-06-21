@@ -27,15 +27,35 @@ def any_msg(message):
 
 @bot.message_handler(content_types = ['text'])
 def reply_msg(message):
+    now = datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")
+
     if len(message.text) > 20 and message.chat.id not in dic.keys():
         bot.forward_message(chat_for,message.from_user.id, message.message_id)
-        now = datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")
         dic[message.from_user.id] = now
+        bot.send_message(message.chat.id, text = """Сообщение успешно отправлено✅
+Вы можете делать публикацию через 30 минут.""")
+        bot.send_message(message.chat.id, text = """<b>🔥🔥🔥ВНИМАНИЕ! Впервые в секторе рекламы!
+
+📌Теперь вы можете мгновенно публиковать свои объявления на нашем канале.
+</b>
+📡Размещай свои объявления сразу на канале и в нашем чате с закреплением через нашего бота: @textreception_bot
+
+https://t.me/firechannel1
+""" ,parse_mode='HTML' )
 
     elif len(message.text) > 20 and int(datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")) - int(dic[message.chat.id]) > 30:
         bot.forward_message(chat_for,message.from_user.id, message.message_id)
-        now = datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")
         dic[message.from_user.id] = now
+        bot.send_message(message.chat.id, text = """Сообщение успешно отправлено✅
+Вы можете делать публикацию через 30 минут.""")
+        bot.send_message(message.chat.id, text = """<b>🔥🔥🔥ВНИМАНИЕ! Впервые в секторе рекламы!
+
+📌Теперь вы можете мгновенно публиковать свои объявления на нашем канале.
+</b>
+📡Размещай свои объявления сразу на канале и в нашем чате с закреплением через нашего бота: @textreception_bot
+
+https://t.me/firechannel1
+""" ,parse_mode='HTML' )
 
     elif len(message.text) <= 20:
         bot.send_message(message.chat.id, text = "<b>❌Длина текста должно быть не менее 20 симболов.❌</b>\n\nПопробуйте ещё раз📝", parse_mode = 'HTML')
@@ -45,20 +65,6 @@ def reply_msg(message):
         bot.send_message(message.chat.id, text = """Вы уже отправили сообщение.✅
 Подождите {} минут и повторите попытку.""".format(time), parse_mode = 'HTML')
 
-
-
-        bot.send_message(message.chat.id, text = """Сообщение успешно отправлено✅
-Вы можете делать публикацию через 30 минут.""")
-
-        bot.send_message(message.chat.id, text = """<b>🔥🔥🔥ВНИМАНИЕ! Впервые в секторе рекламы!
-
-📌Теперь вы можете мгновенно публиковать свои объявления на нашем канале.
-</b>
-📡Размещай свои объявления сразу на канале и в нашем чате с закреплением через нашего бота: @textreception_bot
-
-https://t.me/firechannel1
-""" ,parse_mode='HTML' )
-            # if datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")
 
 
 

@@ -78,7 +78,7 @@ def callback_inline(call):
              time = 30 - (int(datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")) - int(now))
              bot.send_message(call.message.chat.id, text = """Вы уже отправили сообщение.✅
 Подождите {} минут и повторите попытку.""".format(time), parse_mode = 'HTML')
-             bot.restrict_chat_member(message.chat.id, message.from_user.id, until_date=time()+600)
+             bot.restrict_chat_member(call.message.chat.id, call.message.from_user.id, until_date=time()+600)
 
 
 

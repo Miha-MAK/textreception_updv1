@@ -22,7 +22,8 @@ def any_msg(message):
     keyboard.add(callback_button_yes, callback_button_no)
     bot.send_message(message.chat.id, """Добро пожаловать {}!🙋‍♂️
 Я являюсь ботом канала «🔥MAK-S ГОРЯЩАЯ РЕКЛАМА🔥».
-Хотите ли Вы что то опубликировать на канале?""".format(message.from_user.first_name), reply_markup=keyboard)
+Хотите ли Вы что то опубликировать на канале?
+⚠️ВНИМАНИЕ! Объявление можно опубликовать не чаще чем каждые 30 минут.⚠️""".format(message.from_user.first_name), reply_markup=keyboard)
 
 
 @bot.message_handler(content_types = ['text'])

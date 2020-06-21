@@ -61,7 +61,7 @@ def callback_inline(call):
         ID = str(call.data.replace("yes","")) # ID клиента
 
 
-        while True
+        while True:
             if call.message.chat.id not in dic.keys():
                 s = bot.send_message(call.message.chat.id, text = "Напишите текст поста...📝")
                 bot.register_next_step_handler(s,reply_msg) # Переходим в reply_msg

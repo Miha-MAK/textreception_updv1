@@ -39,10 +39,14 @@ def reply_msg(message):
         now = datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")
         dic[message.from_user.id] = now
 
-    else:
+    elif len(message.text) <= 20:
+        bot.send_message(message.chat.id, text = "<b>❌Длина текста должно быть не менее 20 симболов.❌</b>\n\nПопробуйте ещё раз📝", parse_mode = 'HTML')
+
+    else :
         time = 30 - (int(datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")) - int(now))
         bot.send_message(message.chat.id, text = """Вы уже отправили сообщение.✅
 Подождите {} минут и повторите попытку.""".format(time), parse_mode = 'HTML')
+
 
 
         bot.send_message(message.chat.id, text = """Сообщение успешно отправлено✅
@@ -58,8 +62,7 @@ https://t.me/firechannel1
 """ ,parse_mode='HTML' )
             # if datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")
 
-    else:
-        bot.send_message(message.chat.id, text = "<b>❌Длина текста должно быть не менее 20 симболов.❌</b>\n\nПопробуйте ещё раз📝", parse_mode = 'HTML')
+
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):

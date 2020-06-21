@@ -64,9 +64,9 @@ def callback_inline(call):
             s = bot.send_message(call.message.chat.id, text = "Напишите текст поста...📝")
             bot.register_next_step_handler(s,reply_msg) # Переходим в reply_msg
         else:
-            time = 30 - (int(datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")) - int(now))
+            #time = 30 - (int(datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")) - int(now))
             bot.send_message(call.message.chat.id, text = """Вы уже отправили сообщение.✅
-Подождите {} минут и повторите попытку.""".format(time), parse_mode = 'HTML')
+Подождите {} минут и повторите попытку.""", parse_mode = 'HTML')
 
 
 

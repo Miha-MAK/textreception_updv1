@@ -63,7 +63,7 @@ def callback_inline(call):
         global ID
         ID = str(call.data.replace("yes","")) # ID клиента
 
-        if dic[message.from_user.id] == "true"
+        if "true" is in dic.values():
             s = bot.send_message(call.message.chat.id, text = "Напишите текст поста...📝")
             bot.register_next_step_handler(s,reply_msg) # Переходим в reply_msg
         else:

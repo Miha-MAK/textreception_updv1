@@ -29,13 +29,11 @@ def any_msg(message):
 def reply_msg(message):
     if len(message.text) > 20 and message.chat.id not in dic.keys():
         bot.forward_message(chat_for,message.from_user.id, message.message_id)
-        global now
         now = datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")
         dic[message.from_user.id] = now
 
     elif len(message.text) > 20 and int(datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")) - int(dic[message.chat.id]) > 30:
         bot.forward_message(chat_for,message.from_user.id, message.message_id)
-        global now
         now = datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")
         dic[message.from_user.id] = now
 

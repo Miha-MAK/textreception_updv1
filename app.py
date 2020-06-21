@@ -44,7 +44,6 @@ def reply_msg(message):
         bot.send_message(message.chat.id, text = """Вы уже отправили сообщение.✅
 Подождите {} минут и повторите попытку.""".format(time), parse_mode = 'HTML')
 
-    print(dic)
 
         bot.send_message(message.chat.id, text = """Сообщение успешно отправлено✅
 Вы можете делать публикацию через 30 минут.""")

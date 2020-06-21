@@ -28,18 +28,13 @@ def any_msg(message):
 @bot.message_handler(content_types = ['text'])
 def reply_msg(message):
     if len(message.text) > 20:
-        try:
-            bot.forward_message(chat_for,message.from_user.id, message.message_id)
-            global now
-            now = datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")
-            dic[message.from_user.id] = now
 
-            print(dic)
-        except TypeError as e:
-            bot.send_message(message.chat.id, """Неверный формат❌
-Бот не принимает гифы
-Попробуйте ещё раз""")
-            pass
+        bot.forward_message(chat_for,message.from_user.id, message.message_id)
+        global now
+        now = datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")
+        dic[message.from_user.id] = now
+
+        print(dic)
 
 
 
@@ -66,20 +61,19 @@ def callback_inline(call):
         ID = str(call.data.replace("yes","")) # ID клиента
 
 
+        while True
+            if call.message.chat.id not in dic.keys():
+                s = bot.send_message(call.message.chat.id, text = "Напишите текст поста...📝")
+                bot.register_next_step_handler(s,reply_msg) # Переходим в reply_msg
 
-        if call.message.chat.id not in dic.keys():
-            s = bot.send_message(call.message.chat.id, text = "Напишите текст поста...📝")
-            bot.register_next_step_handler(s,reply_msg) # Переходим в reply_msg
+            elif int(datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")) - int(dic[call.message.chat.id]) > 30:
+                s = bot.send_message(call.message.chat.id, text = "Напишите текст поста...📝")
+                bot.register_next_step_handler(s,reply_msg) # Переходим в reply_msg
+            else:
+                 time = 30 - (int(datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")) - int(now))
+                 bot.send_message(call.message.chat.id, text = """Вы уже отправили сообщение.✅
+    Подождите {} минут и повторите попытку.""".format(time), parse_mode = 'HTML')
 
-        elif int(datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")) - int(dic[call.message.chat.id]) > 30:
-            s = bot.send_message(call.message.chat.id, text = "Напишите текст поста...📝")
-            bot.register_next_step_handler(s,reply_msg) # Переходим в reply_msg
-        else:
-             time = 30 - (int(datetime.now(pytz.timezone("Europe/Moscow")).strftime("%d%H%M")) - int(now))
-             bot.send_message(call.message.chat.id, text = """Вы уже отправили сообщение.✅
-Подождите {} минут и повторите попытку.""".format(time), parse_mode = 'HTML')
-             bot.register_next_step_handler(any_msg)   
-             
 
 
 
